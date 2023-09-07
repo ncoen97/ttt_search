@@ -35,14 +35,19 @@ export default function App() {
   }, []);
 
   const handleFilter = (filters: HandleFilterType) => {
-    // Implement filtering logic based on filters and update filteredData
+    // Convert filter strings to lowercase for case-insensitive comparison
+    const lowerCaseRelacion = filters.relacion.toLowerCase();
+    const lowerCaseDireccion = filters.direccion.toLowerCase();
+
     const result = data.filter(
       (item) =>
-        item.relacion.includes(filters.relacion) &&
-        item.direccion.includes(filters.direccion)
+        item.relacion.toLowerCase().includes(lowerCaseRelacion) &&
+        item.direccion.toLowerCase().includes(lowerCaseDireccion)
     );
+
     setFilteredData(result);
   };
+
   return (
     <div style={{ padding: 16 }}>
       <Filters onFilterChange={handleFilter} />
