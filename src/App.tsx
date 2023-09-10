@@ -3,11 +3,6 @@ import Filters from "./Filters";
 import Table from "./Table";
 import mockData from "./mocks";
 
-type HandleFilterType = {
-  relacion: string;
-  direccion: string;
-};
-
 export type DataType = {
   nombre: string;
   apellido: string;
@@ -18,9 +13,20 @@ export type DataType = {
   relacion: string;
 };
 
+export type FiltersType = {
+  relacion: string;
+  direccion: string;
+};
+
+const INITIAL_FILTERS = {
+  relacion: "",
+  direccion: "",
+};
+
 export default function App() {
   const [data, setData] = useState<DataType[]>([]);
   const [filteredData, setFilteredData] = useState<DataType[]>([]);
+  const [filters, setFilters] = useState<FiltersType>(INITIAL_FILTERS);
 
   useEffect(() => {
     // Fetch the data from the API and set it to data state
@@ -34,8 +40,7 @@ export default function App() {
     setFilteredData(mockData);
   }, []);
 
-  const handleFilter = (filters: HandleFilterType) => {
-    // Convert filter strings to lowercase for case-insensitive comparison
+  const handleFilter = () => {
     const lowerCaseRelacion = filters.relacion.toLowerCase();
     const lowerCaseDireccion = filters.direccion.toLowerCase();
 
@@ -48,9 +53,18 @@ export default function App() {
     setFilteredData(result);
   };
 
+  const clearFilters = () => setFilters(INITIAL_FILTERS);
+
   return (
-    <div style={{ padding: 16 }}>
-      <Filters onFilterChange={handleFilter} />
+    <div
+      style={{ height: "100dvh", backgroundColor: "whitesmoke", padding: 16 }}
+    >
+      <Filters
+        handleFilter={handleFilter}
+        filters={filters}
+        setFilters={setFilters}
+        clearFilters={clearFilters}
+      />
       <Table data={filteredData} />
     </div>
   );
