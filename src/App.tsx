@@ -1,56 +1,44 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Filters from "./Filters";
 import Table from "./Table";
-import mockData from "./mocks";
-
-export type DataType = {
-  nombre: string;
-  apellido: string;
-  dni: string;
-  telefono: string;
-  direccion: string;
-  fecha_de_nacimiento: string;
-  relacion: string;
-};
-
-export type FiltersType = {
-  relacion: string;
-  direccion: string;
-};
+import {
+  CitizensType,
+  FiltersDataType,
+  FiltersType,
+  getCitizens,
+  getFiltersData,
+} from "./api";
 
 const INITIAL_FILTERS = {
-  relacion: "",
-  direccion: "",
+  referente: "",
+  calle: "",
 };
 
 export default function App() {
-  const [data, setData] = useState<DataType[]>([]);
-  const [filteredData, setFilteredData] = useState<DataType[]>([]);
+  const [citizens, setCitizens] = useState<CitizensType[]>([]);
+  const [loadingCitizens, setLoadingCitizens] = useState<boolean>(false);
+  const [filtersData, setFiltersData] = useState<FiltersDataType>({
+    referentes: [],
+    calles: [],
+  });
+  const [loadingFiltersData, setLoadingFiltersData] = useState<boolean>(true);
   const [filters, setFilters] = useState<FiltersType>(INITIAL_FILTERS);
 
   useEffect(() => {
-    // Fetch the data from the API and set it to data state
-    // fetch("YOUR_API_ENDPOINT")
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     setData(data);
-    //     setFilteredData(data); // initially, filteredData will have all records
-    //   });
-    setData(mockData);
-    setFilteredData(mockData);
+    // Fetch the filters data from the API and set it to state
+    getFiltersData()
+      .then((res) => setFiltersData(res.data))
+      .catch((err) => console.error(err))
+      .finally(() => setLoadingFiltersData(false));
   }, []);
 
   const handleFilter = () => {
-    const lowerCaseRelacion = filters.relacion.toLowerCase();
-    const lowerCaseDireccion = filters.direccion.toLowerCase();
-
-    const result = data.filter(
-      (item) =>
-        item.relacion.toLowerCase().includes(lowerCaseRelacion) &&
-        item.direccion.toLowerCase().includes(lowerCaseDireccion)
-    );
-
-    setFilteredData(result);
+    // Fetch the citizens from the API and set it to state
+    setLoadingCitizens(true);
+    getCitizens(filters)
+      .then((res) => setCitizens(res.data))
+      .catch((err) => console.error(err))
+      .finally(() => setLoadingCitizens(false));
   };
 
   const clearFilters = () => setFilters(INITIAL_FILTERS);
@@ -64,8 +52,10 @@ export default function App() {
         filters={filters}
         setFilters={setFilters}
         clearFilters={clearFilters}
+        filtersData={filtersData}
+        loading={loadingFiltersData}
       />
-      <Table data={filteredData} />
+      <Table loading={loadingCitizens} citizens={citizens} />
     </div>
   );
 }

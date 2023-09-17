@@ -4,17 +4,24 @@ import {
   AccordionDetails,
   AccordionSummary,
   Button,
-  TextField,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { FiltersType } from "./App";
+import { FiltersDataType, FiltersType } from "./api";
 
 interface FiltersProps {
   filters: FiltersType;
   setFilters: React.Dispatch<React.SetStateAction<FiltersType>>;
   handleFilter: () => void;
   clearFilters: () => void;
+  filtersData: FiltersDataType;
+  loading: boolean;
 }
 
 type HandleInputChangeType = ChangeEvent<
@@ -26,12 +33,14 @@ const Filters: React.FC<FiltersProps> = ({
   setFilters,
   handleFilter,
   clearFilters,
+  loading,
+  filtersData,
 }) => {
   const [expanded, setExpanded] = useState<boolean>(true);
 
   const toggleAccordion = () => setExpanded((prev) => !prev);
 
-  const handleInputChange = (e: HandleInputChangeType) => {
+  const handleInputChange = (e: SelectChangeEvent) => {
     const { name, value } = e.target;
     setFilters((prevState) => ({
       ...prevState,
@@ -57,7 +66,7 @@ const Filters: React.FC<FiltersProps> = ({
           <Typography sx={{ color: "text.secondary", marginLeft: 2 }}>
             {Object.entries(filters)
               .filter((entry) => entry[1])
-              .map((entry) => entry[0])
+              .map((entry) => `${entry[0]}: ${entry[1]}`)
               .join(", ") || "Ninguno"}
           </Typography>
         )}
@@ -69,44 +78,64 @@ const Filters: React.FC<FiltersProps> = ({
           justifyContent: "space-between",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <TextField
-            name="relacion"
-            label="Relacion"
-            onChange={handleInputChange}
-            value={filters.relacion}
-          />
-          <TextField
-            name="direccion"
-            label="Direccion"
-            onChange={handleInputChange}
-            value={filters.direccion}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            gap: 8,
-          }}
-        >
-          <Button
-            onClick={clearFilters}
-            variant="contained"
-            sx={{
-              backgroundColor: "#b0b0b0", // A darker shade of gray
-              "&:hover": {
-                backgroundColor: "#9e9e9e", // A shade darker than the default for hover
-              },
-            }}
-          >
-            Limpiar
-          </Button>
-          <Button onClick={onFilter} variant="contained" color="primary">
-            Filtrar
-          </Button>
-        </div>
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <FormControl sx={{ width: 200 }}>
+                <InputLabel id="referente-select-label">Referente</InputLabel>
+                <Select
+                  value={filters.referente}
+                  label="Referente"
+                  name="referente"
+                  onChange={handleInputChange}
+                >
+                  {filtersData.referentes.map((referente) => (
+                    <MenuItem value={referente}>{referente}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl sx={{ width: 200 }}>
+                <InputLabel id="calle-select-label">Calle</InputLabel>
+                <Select
+                  value={filters.calle}
+                  label="Calle"
+                  name="calle"
+                  onChange={handleInputChange}
+                >
+                  {filtersData.calles.map((calle) => (
+                    <MenuItem value={calle}>{calle}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: 8,
+              }}
+            >
+              <Button
+                onClick={clearFilters}
+                variant="contained"
+                sx={{
+                  backgroundColor: "#b0b0b0", // A darker shade of gray
+                  "&:hover": {
+                    backgroundColor: "#9e9e9e", // A shade darker than the default for hover
+                  },
+                }}
+              >
+                Limpiar
+              </Button>
+              <Button onClick={onFilter} variant="contained" color="primary">
+                Filtrar
+              </Button>
+            </div>
+          </>
+        )}
       </AccordionDetails>
     </Accordion>
   );
