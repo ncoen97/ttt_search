@@ -13,20 +13,18 @@ import {
   Typography,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { FiltersData, Filters } from "./types";
+import { IFiltersData, IFilters } from "../types";
 
 interface FiltersProps {
-  filters: Filters;
-  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+  filters: IFilters;
+  setFilters: React.Dispatch<React.SetStateAction<IFilters>>;
   handleFilter: () => void;
   clearFilters: () => void;
-  filtersData: FiltersData;
+  filtersData: IFiltersData;
   loading: boolean;
 }
 
-type HandleInputChange = ChangeEvent<
-  HTMLInputElement | HTMLTextAreaElement
->;
+type HandleInputChange = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
 const FiltersPanel: React.FC<FiltersProps> = ({
   filters,

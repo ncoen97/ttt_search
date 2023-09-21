@@ -1,6 +1,6 @@
-import { Citizen, FiltersData } from "./types";
+import { ICitizen, IFiltersData } from "./types";
 
-export const mockCitizens: Citizen[] = [
+export const mockCitizens: ICitizen[] = [
   {
     id: 1,
     nombre: "Juan",
@@ -67,7 +67,7 @@ export const mockCitizens: Citizen[] = [
   },
 ];
 
-export const mockFiltersData: FiltersData = {
+export const mockFiltersData: IFiltersData = {
   referentes: ["Eze", ""],
   calles: ["Olleros", "Maure"],
 };

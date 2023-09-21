@@ -1,34 +1,36 @@
-export type CitizensListResponse = {
-	data: Citizen[]
-}
-
-export type Citizen = {
-	id: number;
-	nombre: string;
-	apellido: string;
-	dni: string;
-	telefono: string;
-	domicilio: Address;
-	fechaNacimiento: string;
-	referenteTTT: ReferenteTTT;
+export type ICitizensListResponse = {
+  data: ICitizens;
 };
 
-export type Address = {
-	calle: string;
-	numero: string;
-	extra: string;
-}
+export type ICitizens = ICitizen[];
 
-export type ReferenteTTT = {
-	nombre: string;
-}
-
-export type Filters = {
-	referente: string;
-	calle: string;
+export type ICitizen = {
+  id: number;
+  nombre: string;
+  apellido: string;
+  dni: string;
+  telefono: string;
+  domicilio: IAddress;
+  fechaNacimiento: string;
+  referenteTTT: IReferenteTTT;
 };
 
-export type FiltersData = {
-	referentes: string[];
-	calles: string[];
+export type IAddress = {
+  calle: string;
+  numero: string;
+  extra: string;
+};
+
+export type IReferenteTTT = {
+  nombre: string;
+};
+
+export type IFilters = {
+  referente: string;
+  calle: string;
+};
+
+export type IFiltersData = {
+  referentes: string[];
+  calles: string[];
 };

@@ -7,10 +7,10 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { Citizen } from "./types";
+import { ICitizen } from "../types";
 
 interface TableProps {
-  citizens: Citizen[];
+  citizens: ICitizen[];
   loading: boolean;
 }
 
@@ -32,11 +32,19 @@ const Table: React.FC<TableProps> = ({ citizens, loading }) => {
       <TableBody>
         {citizens.map((row, index) => (
           <TableRow key={index}>
-            <TableCell>{row.nombre} {row.apellido}</TableCell>
+            <TableCell>
+              {row.nombre} {row.apellido}
+            </TableCell>
             <TableCell>{row.dni || "-"}</TableCell>
             <TableCell>{row.telefono || "-"}</TableCell>
-            <TableCell>{row.domicilio.calle} {row.domicilio.numero} {row.domicilio.extra}</TableCell>
-            <TableCell>{row.fechaNacimiento ? new Date(row.fechaNacimiento).toLocaleDateString('es-AR') : "-"}</TableCell>
+            <TableCell>
+              {row.domicilio.calle} {row.domicilio.numero} {row.domicilio.extra}
+            </TableCell>
+            <TableCell>
+              {row.fechaNacimiento
+                ? new Date(row.fechaNacimiento).toLocaleDateString("es-AR")
+                : "-"}
+            </TableCell>
             <TableCell>{row.referenteTTT?.nombre || "No asignado"}</TableCell>
           </TableRow>
         ))}

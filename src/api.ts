@@ -1,17 +1,17 @@
 import axios from "axios";
 import { mockCitizens, mockFiltersData } from "./mocks";
-import { CitizensListResponse, Filters, FiltersData } from "./types";
+import { ICitizensListResponse, IFilters, IFiltersData } from "./types";
 
 const backendUrl = "http://localhost:8000/api";
 
 export const getFiltersData = () => {
   //return Promise.resolve({ data: mockFiltersData });
-  return axios.get<FiltersData>(`${backendUrl}/filtros`);
+  return axios.get<IFiltersData>(`${backendUrl}/filtros`);
 };
 
-export const getCitizens = (filters?: Filters) => {
+export const getCitizens = (filters?: IFilters) => {
   //return Promise.resolve({ data: mockCitizens });
-  return axios.get<CitizensListResponse>(`${backendUrl}/ciudadanos`, {
+  return axios.get<ICitizensListResponse>(`${backendUrl}/ciudadanos`, {
     params: filters
   });
 };
