@@ -44,7 +44,7 @@ export default function HomePage() {
   const clearFilters = () => setFilters(INITIAL_FILTERS);
 
   return (
-    <div style={{ height: "100%", backgroundColor: "whitesmoke", padding: 16 }}>
+    <div style={{ padding: 16 }}>
       <FiltersPanel
         handleFilter={handleFilter}
         filters={filters}

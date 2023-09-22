@@ -10,11 +10,11 @@ export const mockCitizens: ICitizen[] = [
     domicilio: {
       calle: "Calle",
       numero: "123",
-      extra: "Piso 3"
+      extra: "Piso 3",
     },
     fechaNacimiento: "1990-01-01",
     referenteTTT: {
-      nombre: "Mati"
+      nombre: "Mati",
     },
   },
   {
@@ -26,11 +26,11 @@ export const mockCitizens: ICitizen[] = [
     domicilio: {
       calle: "Avenida",
       numero: "456",
-      extra: "DEPTO 1"
+      extra: "DEPTO 1",
     },
     fechaNacimiento: "1992-05-10",
     referenteTTT: {
-      nombre: "Tati"
+      nombre: "Tati",
     },
   },
   {
@@ -42,11 +42,11 @@ export const mockCitizens: ICitizen[] = [
     domicilio: {
       calle: "Callejón",
       numero: "789",
-      extra: ""
+      extra: "",
     },
     fechaNacimiento: "1985-07-20",
     referenteTTT: {
-      nombre: "Seba"
+      nombre: "Seba",
     },
   },
   {
@@ -58,11 +58,11 @@ export const mockCitizens: ICitizen[] = [
     domicilio: {
       calle: "Boulevard",
       numero: "012",
-      extra: "FONDO"
+      extra: "FONDO",
     },
     fechaNacimiento: "1995-03-15",
     referenteTTT: {
-      nombre: "Eze"
+      nombre: "Eze",
     },
   },
 ];
@@ -70,4 +70,21 @@ export const mockCitizens: ICitizen[] = [
 export const mockFiltersData: IFiltersData = {
   referentes: ["Eze", ""],
   calles: ["Olleros", "Maure"],
+};
+
+export const mockCitizen: ICitizen = {
+  id: 1,
+  nombre: "John",
+  apellido: "Doe",
+  dni: "123456789",
+  telefono: "1234567890",
+  fechaNacimiento: "1990-01-01",
+  domicilio: {
+    calle: "Street Name",
+    numero: "123",
+    extra: "Apartment 4B",
+  },
+  referenteTTT: {
+    nombre: "Reference Name",
+  },
 };

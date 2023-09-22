@@ -4,7 +4,7 @@ import CitizenPage from "./citizen";
 
 export default function App() {
   return (
-    <div style={{ height: "100vh" }}>
+    <div style={{ height: "100vh", backgroundColor: "whitesmoke" }}>
       <Routes>
         <Route index element={<HomePage />} />
         <Route path="/ciudadanos/:id" element={<CitizenPage />} />

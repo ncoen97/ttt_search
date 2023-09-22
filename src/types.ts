@@ -5,7 +5,7 @@ export type ICitizensListResponse = {
 export type ICitizens = ICitizen[];
 
 export type ICitizen = {
-  id: number;
+  id: number | null;
   nombre: string;
   apellido: string;
   dni: string;
